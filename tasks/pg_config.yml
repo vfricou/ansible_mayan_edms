@@ -1,16 +1,36 @@
 ---
-- name: pg_config | create user
-  become: true
-  become_user: postgres
-  postgresql_user:
-    name: '{{ d_pg_medms_db_user }}'
-    password: 'password'
-    state: present
+- name: pg_config | test if password already generated
+  stat:
+    path: /root/.pgmedms.pass
+  register: medms_pass_file
+  changed_when: not medms_pass_file.stat.exists
 
-- name: pg_config | create database
-  become: true
-  become_user: postgres
-  postgresql_db:
-    name: '{{ d_pg_medms_db_name }}'
-    owner: '{{ d_pg_medms_db_user }}'
-    state: present
+- block:
+  - name: pg_config | generate random password
+    set_fact:
+      pg_medms_user_password: "{{ lookup('password', '/dev/null length=16 chars=ascii_letters,digits,-,_,!,.,*') }}"
+    no_log: True
+    when:
+
+  - name: pg_config | store password on host
+    shell: "echo {{ pg_medms_user_password }} > /root/.pgmedms.pass"
+    no_log: True
+
+  - name: pg_config | create user
+    become: true
+    become_user: postgres
+    postgresql_user:
+      name: '{{ d_pg_medms_db_user }}'
+      password: '{{ pg_medms_user_password }}'
+      state: present
+    no_log: True
+
+  - name: pg_config | create database
+    become: true
+    become_user: postgres
+    postgresql_db:
+      name: '{{ d_pg_medms_db_name }}'
+      owner: '{{ d_pg_medms_db_user }}'
+      state: present
+
+  when: medms_pass_file.changed

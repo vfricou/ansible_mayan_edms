@@ -18,3 +18,4 @@
 
 - name: import pg_config tasks
   import_tasks: pg_config.yml
+  when: d_install_pg == 'yes'
