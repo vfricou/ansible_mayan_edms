@@ -17,6 +17,7 @@
     create_home: no
     state: present
     system: yes
+    home: '{{ d_medms_root_dir }}'
 
 - name: requirements | ensure application folder exist
   file:
