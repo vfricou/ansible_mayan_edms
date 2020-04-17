@@ -9,3 +9,6 @@
 
 - name: flush handlers
   meta: flush_handlers
+
+- name: import python init
+  import_tasks: python_init.yml

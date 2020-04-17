@@ -1,0 +1,8 @@
+---
+# sudo -u mayan /opt/mayan-edms/bin/pip install -U pip
+- name: python_init | update pip
+  become_user: '{{ d_medms_user }}'
+  become: yes
+  pip:
+    name: pip
+    virtualenv: '{{ d_medms_root_dir }}'
