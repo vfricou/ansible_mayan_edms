@@ -1,0 +1,8 @@
+---
+- name: update folder rights
+  file:
+    path: '{{ d_medms_root_dir }}'
+    state: directory
+    owner: '{{ d_medms_user }}'
+    group: '{{ d_medms_user }}'
+    recurse: yes

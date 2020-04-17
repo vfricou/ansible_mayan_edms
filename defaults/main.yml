@@ -1,0 +1,6 @@
+---
+d_install_pg: 'yes'
+
+
+d_medms_user: 'mayan'
+d_medms_root_dir: '/opt/mayan-edms'

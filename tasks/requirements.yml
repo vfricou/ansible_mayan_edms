@@ -1,0 +1,30 @@
+---
+- name: requirements | install mayan edms required packages
+  apt:
+    name: '{{ v_medms_requirements_pkg }}'
+    state: latest
+
+- name: requirements | install postgresql database
+  apt:
+    name: '{{ v_medms_pg_requirements_pkg }}'
+    state: latest
+  when: d_install_pg == 'yes'
+
+- name: requirements | create mayan user
+  user:
+    name: '{{ d_medms_user }}'
+    comment: 'Mayan EDMS user'
+    create_home: no
+    state: present
+    system: yes
+
+- name: requirements | ensure application folder exist
+  file:
+    path: '{{ d_medms_root_dir }}'
+    state: directory
+    owner: '{{ d_medms_user }}'
+    group: '{{ d_medms_user }}'
+
+- name: requirements | create virtualenv
+  command: virtualenv {{ d_medms_root_dir }} -p /usr/bin/python3
+  notify: update folder rights

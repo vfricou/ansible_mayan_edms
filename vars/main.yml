@@ -1,0 +1,28 @@
+---
+v_medms_requirements_pkg:
+  - exiftool
+  - g++
+  - gcc
+  - coreutils
+  - ghostscript
+  - gnupg1
+  - graphviz
+  - libfuse2
+  - libjpeg-dev
+  - libmagic1
+  - libpq-dev
+  - libpng-dev
+  - libreoffice
+  - libtiff-dev
+  - poppler-utils
+  - python3-dev
+  - python3-virtualenv
+  - redis-server
+  - sane-utils
+  - sudo
+  - supervisor
+  - tesseract-ocr
+  - virtualenv
+  - zlib1g-dev
+v_medms_pg_requirements_pkg:
+  - postgresql
