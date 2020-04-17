@@ -1,0 +1,12 @@
+---
+- name: python_install | install mayan edms
+  become_user: '{{ d_medms_user }}'
+  become: yes
+  pip:
+    name: '{{ item }}'
+    virtualenv: '{{ d_medms_root_dir }}'
+    extra_args: --no-use-pep517
+  with_items:
+    - mayan-edms
+    - psycopg2==2.8.4
+    - redis==3.4.1

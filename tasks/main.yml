@@ -12,3 +12,6 @@
 
 - name: import python init
   import_tasks: python_init.yml
+
+- name: import mayan install
+  import_tasks: mayan_install.yml
