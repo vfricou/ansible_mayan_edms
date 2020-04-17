@@ -15,3 +15,6 @@
 
 - name: import mayan install
   import_tasks: mayan_install.yml
+
+- name: import pg_config tasks
+  import_tasks: pg_config.yml

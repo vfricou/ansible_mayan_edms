@@ -1,0 +1,16 @@
+---
+- name: pg_config | create user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: '{{ d_pg_medms_db_user }}'
+    password: 'password'
+    state: present
+
+- name: pg_config | create database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: '{{ d_pg_medms_db_name }}'
+    owner: '{{ d_pg_medms_db_user }}'
+    state: present
